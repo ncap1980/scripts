@@ -1,0 +1,18 @@
+filebot -r /volume1/14Teras/Qbittorrent/complete \
+-script fn:amc \
+--lang es \
+--output "/volume1/14Teras/video" \
+-non-strict \
+--conflict skip \
+--def movieDB=TheMovieDB \
+--def seriesDB=TheTVDB \
+--def animeDB=AniDB \
+--def ignore="torrents" \
+--def excludeList=/var/services/homes/ncap/logs/amc.txt \
+--encoding utf8 \
+--log all \
+--log-file /var/services/homes/ncap/logs/filebot_synology.log \
+--action hardlink \
+--def 'movieFormat={fn =~ /4k|4K|2160p|UHD/ && fn =~ "Dolby Vision"? "/volume1/14Teras/Multimedia/Dolby Vision" :fn =~ /3d|3D|half-ou|half-sbs|HALF-OU|HALF-SBS|Half-OU|Half-SBS/ ? "/volume1/14Teras/Multimedia/3D" :genres.contains("Documental") ? "/volume1/14Teras/Multimedia/Documentales Películas" : genres.contains("Terror") ? "/volume1/14Teras/Multimedia/Terror" :genres.contains("Animación") ? "/volume1/14Teras/Multimedia/Dibujos" :genres.contains("Anime") ? "/volume1/14Teras/Multimedia/Anime" :genres.contains("Sport") ? "/volume1/14Teras/Multimedia/Deportes" :fn =~ /4k|4K|2160p|UHD/ && genres.contains("Animación") ? "/volume1/14Teras/Multimedia/Dibujos" : fn =~ /4k|4K|2160p|UHD/ ? "/volume1/14Teras/Multimedia/4K" : "/volume1/14Teras/Multimedia/Peliculas"}/{ny} {"{tmdb-${tmdbid}}"}/{n} [{y}][{hd}][{" "+source}{"."+vc}{"-"+group}{" "+ac}{" "+channels}]{" "+s3d}{"["+lang+"]"}{" "+vf}{"."+hdr}' \
+--def 'seriesFormat={genres.contains("Anime") ? "/volume1/14Teras/Multimedia/SeriesAnime" :genres.contains("Documental") ? "/volume1/14Teras/Multimedia/Documentales" : genres.contains("Animación") ? "/volume1/14Teras/Multimedia/SeriesInfantiles" : "/volume1/14Teras/Multimedia/Series"}/{ny} { " {tvdb-" + { id } + "}" }/Season {s}/{n}{"."+s00e00}{"."+t}{"."+lang}{"."+vf}{"."+hdr}' \
+--apply refresh

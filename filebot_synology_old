@@ -1,0 +1,25 @@
+#!/bin/bash -x
+#
+# DEBUG
+LOG=/var/services/homes/ncap/logs/$$.log
+#exec > $LOG 2>&1
+
+
+CONFIG_OUTPUT='/volume1/14Teras/Multimedia'
+
+filebot -r /volume1/14Teras/Qbittorrent/complete -script fn:amc --lang es \
+--output "/volume1/video" \
+-non-strict \
+--conflict skip \
+--def movieDB=TheMovieDB \
+--def seriesDB=TheTVDB \
+--def animeDB=AniDB \
+--def ignore="torrents" \
+--def excludeList=/var/services/homes/ncap/logs/amc.txt \
+--encoding utf8 \
+--log all \
+--log-file /var/services/homes/ncap/logs/filebot_torrent.log \
+--action hardlink \
+--def 'movieFormat={genres.contains("Animación") ? "/volume1/14Teras/Multimedia/Dibujos" :  fn =~ /4k|4K|2160p|UHD/ && genres.contains("Animación") ? "/volume1/14Teras/Multimedia/Dibujos" : fn =~ /4k|4K|2160p|UHD/ && fn =~ "Dolby Vision"? "/volume1/14Teras/Multimedia/Dolby Vision" :  fn =~ /4k|4K|2160p|UHD/ ? "/volume1/14Teras/Multimedia/4K" :   genres.contains("Terror") ? "/volume1/14Teras/Multimedia/Terror" :  genres.contains("Documental") ? "/volume1/14Teras/Multimedia/Documentales" : "/volume1/14Teras/Multimedia/Peliculas"}/{ny} {"{tmdb-${tmdbid}}"}/{n} [{y}][{hd}]{" "+source}{"."+vc}{"-"+group}{" "+ac}{" "+channels}]{" "+s3d}{"["+lang+"]"}{" "+vf}{"."+hdr}' \
+--def 'seriesFormat={genres.contains("Animación") ? "/volume1/14Teras/Multimedia/SeriesInfantiles" : "/volume1/14Teras/Multimedia/Series"}/{n} {"- "+y} ({"tmdb-"+tmdbid})/Season {s}/{n}{"."+s00e00}{"."+t}{"."+lang}{"."+vf}{"."+hdr}' \
+--def 'animeFormat={genres.contains("Anime") ? "/volume1/14Teras/Multimedia/SeriesAnime" : "/volume1/14Teras/Multimedia/Series"}/{n} {"- "+y} ({"tmdb-"+tmdbid})/Season {s}/{n}{"."+s00e00}{"."+t}{"."+lang}{"."+vf}{"."+hdr}'

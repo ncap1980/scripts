@@ -1,0 +1,3 @@
+#!/bin/bash
+
+filebot $1 -rename -non-strict --db TheMovieDB::TV --conflict skip --lang Spanish --action keeplink --output /volume1/14Teras/Multimedia/Series/ --format "{n}/Season {s}/{n}{'.'+s00e00}{'.'+t}{'.'+lang}{'.'+vf}{'.'+hdr}"

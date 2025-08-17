@@ -1,0 +1,10 @@
+filebot /volume1/downloads/pruebas -script fn:amc \
+--output "/volume1/14Teras/Multimedia" \
+-non-strict \
+--conflict skip \
+--def movieDB=TheMovieDB seriesDB=TheMovieDB::TV \
+--lang es --encoding utf8 --log all \
+--log-file /var/services/homes/ncap/logs/filebot_torrent_transmission.log \
+--action test \
+--def "movieFormat={fn =~ /4k|4K|2160p|2160P/ ? '/volume1/14Teras/Multimedia/4K' : {genres.contains('Familia') ? '/volume1/14Teras/Multimedia/Dibujos' : genres.contains('japan') ? '/volume1/14Teras/Multimedia/Anime' : genres.contains('Terror') ? '/volume1/14Teras/Multimedia/Terror' : genres.contains('Documental') ? '/volume1/14Teras/Multimedia/Documentales' : '/volume1/14Teras/Multimedia/Peliculas'}}/{n} ({y}) {vf}" \
+--def "seriesFormat={fn =~ /4k|4K|2160p|2160P/ ? '/volume1/14Teras/Multimedia/Series4K' : {genres.contains('Children') ? '/volume1/14Teras/Multimedia/Series/InfantilTV' : genres.contains('Documentary') ? '/volume1/14Teras/Multimedia/Series/SeriesDocumentales' : '/volume1/14Teras/Multimedia/Series/Series'}}/{n}/Season {s}/{n}.{s00e00}.{t}.{vf}"

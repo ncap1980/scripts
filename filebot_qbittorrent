@@ -1,0 +1,23 @@
+#!/bin/bash -x
+#
+# DEBUG
+LOG=/14Teras/Qbittorrent/logs/$$.log
+#exec > $LOG 2>&1
+
+CONFIG_OUTPUT='/14Teras/Multimedia'
+
+filebot -r /14Teras/Qbittorrent/complete -script fn:amc --lang es \
+--output "/2Teras/video" \
+-non-strict \
+--conflict skip \
+--def movieDB=TheMovieDB \
+--def seriesDB=TheTVDB \
+--def animeDB=AniDB \
+--def ignore="torrents" \
+--def excludeList=/14Teras/Qbittorrent/logs/excluidos.txt \
+--encoding utf8 \
+--log all \
+--log-file /14Teras/Qbittorrent/logs/filebot_qbittorrent.log \
+--action hardlink \
+--def "movieFormat={'$CONFIG_OUTPUT/Peliculas'}/{plex.name}/{n} [{y}][{hd}{' '+source}{'.'+vc}{'-'+group}{' '+ac}{' '+channels}]{' '+s3d}{'['+lang+']'}{' '+vf}{'.'+hdr}"
+--def unsorted=y artwork=y "ut_label=%L" "ut_title=%N" "ut_kind=multi" "ut_dir=%F"

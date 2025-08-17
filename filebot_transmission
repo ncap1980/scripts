@@ -1,0 +1,21 @@
+#!/bin/bash -x
+#
+# DEBUG
+LOG=/var/services/homes/ncap/logs/$$.log
+#exec > $LOG 2>&1
+
+
+CONFIG_OUTPUT='/volume1/14Teras/Multimedia'
+
+filebot -r /volume1/14Teras/Qbittorrent/complete -script fn:amc --lang es \
+--output "/volume1/video" \
+-non-strict \
+--conflict skip \
+--def ignore="torrents" \
+--def excludeList=/var/services/homes/ncap/logs/amc.txt \
+--encoding utf8 \
+--log all \
+--log-file /var/services/homes/ncap/logs/filebot_torrent.log \
+--action hardlink \
+--def "movieFormat={fn =~ /4k|4K|2160p|UHD/ && fn =~ 'Dolby Vision'? '$CONFIG_OUTPUT/Dolby Vision' : fn =~ /4k|4K|2160p|UHD/ ? '$CONFIG_OUTPUT/4K' : genres.contains('Animación') ? '$CONFIG_OUTPUT/Dibujos' :  genres.contains('Terror') ? '$CONFIG_OUTPUT/Terror' : genres.contains('Documental') ? '$CONFIG_OUTPUT/Documentales' : '$CONFIG_OUTPUT/Peliculas'}/{n}/{n} [{y}][{hd}{' '+source}{'.'+vc}{'-'+group}{' '+ac}{' '+channels}]{' '+s3d}{'['+lang+']'}{' '+vf}{'.'+hdr}" ut_dir="$TR_TORRENT_DIR" \
+--def "seriesFormat={genres.contains('Anime') ? '$CONFIG_OUTPUT/SeriesAnime' : genres.contains('Animación') ? '$CONFIG_OUTPUT/SeriesInfantiles' : '$CONFIG_OUTPUT/Series'}/{n}/Season {s}/{n}{'.'+s00e00}{'.'+t}{'.'+lang}{'.'+vf}{'.'+hdr}"

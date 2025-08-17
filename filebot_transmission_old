@@ -1,0 +1,21 @@
+#!/bin/bash -x
+#
+# DEBUG
+ARG_LABEL="N/A"
+CONFIG_OUTPUT='/volume1/14Teras/Multimedia'
+
+filebot -script fn:amc \
+--output "/volume1/video" \
+-non-strict \
+--db TheMovieDB \
+--conflict skip \
+--lang es \
+--encoding utf8 \
+--def excludelist=/var/services/homes/ncap/logs/exclude.log
+--log all \
+--log-file /var/services/homes/ncap/logs/filebot_torrent.log \
+--action test \
+--def artwork=y \
+--def plex="192.168.2.44" \
+--def "movieFormat={fn =~ /4k|4K|2160p|UHD/ ? '$CONFIG_OUTPUT/4K' : genres.contains('Animación') ? '$CONFIG_OUTPUT/Dibujos' :  genres.contains('Terror') ? '$CONFIG_OUTPUT/Terror' : genres.contains('Documental') ? '$CONFIG_OUTPUT/Documentales' : '$CONFIG_OUTPUT/Peliculas'}/{n} [{y}][{hd}{' '+source}{'.'+vc}{'-'+group}{' '+ac}{' '+channels}]{' '+s3d}{'['+lang+']'}{' '+vf}{'.'+hdr}" \
+--def "seriesFormat=$CONFIG_OUTPUT/Series/{n}/Season {s}/{n}{'.'+s00e00}{'.'+t}{'.'+lang}{'.'+vf}{'.'+hdr}" "ut_dir=$TR_TORRENT_DIR/../$TR_TORRENT_NAME" "ut_kind=multi" "ut_title=$TR_TORRENT_NAME" 

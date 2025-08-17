@@ -1,0 +1,10 @@
+#!/bin/bash -x
+#
+# DEBUG
+LOG=/var/services/homes/ncap/logs/debug.log
+#exec > $LOG 2>&1
+
+CONFIG_OUTPUT='/volume1/14Teras/Multimedia'
+
+##filebot "/volume1/downloads/complete/The Stand (2020) - 1x08 - The Stand.mkv" 
+filebot "/volume1/14Teras/Multimedia/Movies/Game of Thrones - The Last Watch (2019)" -r --action move -rename -script fn:amc --output /volume1/video/ -non-strict --conflict skip --lang es --encoding utf8 --def excludelist=/var/services/homes/ncap/logs/exclude.log --log all --log-file /var/services/homes/ncap/logs/filebot_torrent.log --def "movieFormat={fn =~ /4k|4K|2160p|UHD/ ? '$CONFIG_OUTPUT/4K' : genres.contains('Animación') ? '$CONFIG_OUTPUT/Dibujos' :  genres.contains('Terror') ? '$CONFIG_OUTPUT/Terror' : genres.contains('Documental') ? '$CONFIG_OUTPUT/Documentales' : '$CONFIG_OUTPUT/Peliculas'}/{n} [{y}][{hd}{' '+source}{'.'+vc}{'-'+group}{' '+ac}{' '+channels}]{' '+s3d}{'['+lang+']'}{' '+vf}{'.'+hdr}" --def "seriesFormat=$CONFIG_OUTPUT/Series/{n}/Season {s}/{n}{'.'+s00e00}{'.'+t}{'.'+lang}{'.'+vf}{'.'+hdr}"

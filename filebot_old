@@ -1,0 +1,16 @@
+url='/volume1/14Teras/Multimedia'
+
+filebot -script fn:amc --lang es /volume1/downloads \
+--output "/volume1/video" \
+-non-strict \
+--conflict skip \
+--def ignore="torrents" \
+--def excludeList=/var/services/homes/ncap/scripts/amc.txt \
+--encoding utf8 \
+--log all \
+--log-file /var/services/homes/ncap/logs/filebot_torrent.log \
+--action keeplink \
+--def minFileSize=10 minLengthMS=0 \
+--def "movieFormat={fn =~ /4k|4K|2160p|UHD/ ? '$url/4K' : genres.contains('Animación') ? '$url/Dibujos' : genres.contains('Anime') ? '$url/Anime':  genres.contains('Terror') ? '$url/Terror' : genres.contains('Documental') ? '$url/Documentales' : '$url/Peliculas'}/{n} [{y}][{hd}{' '+source}{'.'+vc}{'-'+group}{' '+ac}{' '+channels}]{' '+s3d}{'['+lang+']'}{' '+vf}" \
+--def "seriesFormat=$url/Series/{n}/Season {s}/{n}{'.'+s00e00}{'.'+t}{'.'+lang}{'.'+vf}"
+--def plex="192.168.2.44"

@@ -1,0 +1,1 @@
+filebot $1 --output /volume1/14Teras/Multimedia/Peliculas/ -non-strict --db TheMovieDB --conflict skip --lang es  --encoding utf8 --def excludelist=/var/services/homes/ncap/logs/exclude.log --action test --q $1 -rename --format "{n} [{y}][{hd}{' '+source}{'.'+vc}{'-'+group}{' '+ac}{' '+channels}]{' '+s3d}{'['+lang+']'}{' '+vf}"

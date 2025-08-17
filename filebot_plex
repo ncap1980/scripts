@@ -1,0 +1,23 @@
+#!/bin/bash -x
+#
+# DEBUG
+LOG=/var/services/homes/ncap/logs/$$.log
+#exec > $LOG 2>&1
+
+
+CONFIG_OUTPUT='/volume1/14Teras/Multimedia'
+
+filebot -r /volume1/14Teras/Qbittorrent/complete -script fn:amc --lang es \
+--output "/volume1/video" \
+-non-strict \
+--conflict skip \
+--def movieDB=TheMovieDB \
+--def seriesDB=TheTVDB \
+--def animeDB=AniDB \
+--def ignore="torrents" \
+--def excludeList=/var/services/homes/ncap/logs/amc.txt \
+--encoding utf8 \
+--log all \
+--log-file /var/services/homes/ncap/logs/filebot_torrent.log \
+--action test \
+--def "movieFormat={'$CONFIG_OUTPUT/Peliculas'}/{plex.name}/{n} [{y}][{hd}{' '+source}{'.'+vc}{'-'+group}{' '+ac}{' '+channels}]{' '+s3d}{'['+lang+']'}{' '+vf}{'.'+hdr}"
